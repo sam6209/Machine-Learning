@@ -1,4 +1,4 @@
-# XGBoost笔记 
+# XGBoost总结 
 ### 写在前面
 XGBoost既是我看的第一篇论文，也是我写的第一篇总结。中间断断续续的看了些推荐系统、深度学习方面的论文，再来写XGBoost的总结的时候，已经是又是一年后了。  
 XGBoost基本算传统模型的最高峰了：引入树模型的非线形，使用集成学习boost的思想，借鉴了随机森林的抽样和列抽样，借鉴了逻辑回归的L2范数，特征粒度上支持并行，Shrinkage等。   
@@ -14,6 +14,7 @@ XGBoost基本算传统模型的最高峰了：引入树模型的非线形，使�
 损失函数l 衡量预测值与真实值的差距，是可微的凸函数。  
 正则项衡量模型的复杂度: T是叶子节点的数目，w是每个节点上的数值。  
 <center> <img src=figure/2.png width = 45% div align=center> </center> 
+
 ####  3、推导
 Addictive Training：  
 由于f是树结构，不能使传统的方法--梯度下降去求最优的f，所以使用Addictive Training求解，即每一步都通过最小化L(t)，求解ft
