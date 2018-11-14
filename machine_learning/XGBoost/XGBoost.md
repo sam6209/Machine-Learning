@@ -19,32 +19,32 @@ XGBoost基本算传统模型的最高峰了：引入树模型的非线形，使�
 Addictive Training：  
 由于f是树结构，不能使传统的方法--梯度下降去求最优的f，所以使用Addictive Training求解，即每一步都通过最小化L(t)，求解ft
 <center> 
-<img src=figure/3.png width = 55% div align=center> (3) 
+<img src=figure/3.png width = 55% div align=center> 
 </center> 
 
 
 泰勒近似：  
 将l(yi, yˆi(t−1) + ft(xi))在yˆi(t−1)用泰勒公式2阶展开，近似替代l(yi, yˆi(t−1) + ft(xi))，并移除常数项，得到需要求解的如下形式，其中 gi是l(yi, yˆi(t−1) + ft(xi))在yˆi(t−1)的一阶导数，hi是二阶导数：
 <center> 
-<img src=figure/4.png width = 60% div align=center> (4) 
+<img src=figure/4.png width = 60% div align=center>
 </center>
 
 
 根据叶子结点上的样本改写：  
-定义Ij = {i|q(xi) = j}为：叶子节点j上的所有样本。(4)式可写成如下形式：
+定义Ij = {i|q(xi) = j}为：叶子节点j上的所有样本。上式可写成如下形式：
 <center> 
-<img src=figure/5.png width = 65% div align=center> (5) 
+<img src=figure/5.png width = 65% div align=center>
 </center> 
 
 
 二次函数最优解：  
 这是个二次函数，最小化L(t)，所以可得每个叶子节点的值wj和最小化的L(t)分别为：
 <center> 
-<img src=figure/6.png width = 33% div align=center> (6) 
+<img src=figure/6.png width = 33% div align=center>
 </center> 
 
 <center> 
-<img src=figure/7.png width = 50% div align=center> (7) 
+<img src=figure/7.png width = 50% div align=center>
 </center> 
 
 
@@ -52,7 +52,7 @@ Addictive Training：
 这个公式形式上跟ID3算法(采用entropy计算增益)、CART算法(采用gini指数计算增益)是一致的，都是用分裂后的某种值减去分裂前的某种值，从而得到增益。
 假定IL和IR为节点分裂后的左子树和右子树上的样本，I=IL+ IR，则分裂后损失的减少为：
 <center> 
-<img src=figure/8.png width = 90% div align=center> (8) 
+<img src=figure/8.png width = 90% div align=center>
 </center> 
 
 树节点在进行分裂时，我们需要计算每个特征的每个分割点对应的增益，即用贪心法枚举所有可能的分割点：
