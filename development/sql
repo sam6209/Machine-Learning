@@ -1,0 +1,119 @@
+1、SQL 对大小写不敏感：SELECT 与 select 是相同的。
+
+2、文本字段 vs. 数值字段：SQL 使用单引号来环绕文本值（大部分数据库系统也接受双引号）。
+
+3、where 语句：
+<> 表示不等于
+逻辑运算：and、or、not
+特殊条件：is null(空值判断)、between and (在 之间的值)、In、Like(模糊查询)
+eg:查询EMP表中 sal 小于等于1500 的值。
+select * from emp where not sal > 1500;
+
+4、ORDER BY 关键字用于对结果集进行排序。默认按照升序对记录进行排序。使用 DESC 按照降序排序。
+ORDER BY 多列的时候，先按照第一个column name排序，在按照第二个column name排序；
+order by A,B        这个时候都是默认按升序排列
+order by A desc,B   这个时候 A 降序，B 升序排列
+order by A ,B desc  这个时候 A 升序，B 降序排列
+即 desc 或者 asc 只对它紧跟着的第一个列名有效，其他不受影响，仍然是默认的升序。
+
+5、INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);
+eg.INSERT INTO Websites (name, url, alexa, country) VALUES ('百度','https://www.baidu.com/','4','CN');
+
+6、UPDATE table_name 
+SET column1=value1,column2=value2,...
+WHERE some_column=some_value;
+
+7、SQL SELECT TOP, LIMIT, ROWNUM 子句：用于规定要返回的记录的数目。
+并非所有的数据库系统都支持 SELECT TOP 语句。 MySQL 支持 LIMIT 语句来选取指定的条数数据， Oracle 可以使用 ROWNUM 来选取。
+eg. 
+SELECT TOP 5 number * FROM Websites;
+SELECT * FROM Websites LIMIT 5;
+SELECT * FROM Websites WHERE ROWNUM <=5;
+
+8、like: 用于在 WHERE 子句中搜索列中的指定模式。
+通过使用 NOT 关键字，您可以选取不匹配模式的记录。
+'%a'    //以a结尾的数据
+'a%'    //以a开头的数据
+'%a%'    //含有a的数据
+‘_a_’    //三位且中间字母是a的
+'_a'    //两位且结尾字母是a的
+'a_'    //两位且开头字母是a的
+eg. SELECT * FROM Websites WHERE name NOT LIKE '%oo%';
+选取 name 不包含模式 "oo" 的所有客户。
+
+9、IN 操作符允许您在 WHERE 子句中规定多个值。
+IN 与 = 的异同：
+ 相同点：均在WHERE中使用作为筛选条件之一、均是等于的含义
+ 不同点：IN可以规定多个值，等于规定一个值
+
+10、BETWEEN And 操作符选取介于两个值之间的数据范围内的值。这些值可以是数值、文本或者日期。
+如需显示不在上面实例范围内的网站，请使用 NOT BETWEEN.
+当为文本时，选择以改字符开头的行。
+eg. 选取 name 不介于 'A' 和 'H' 之间字母开始的所有网站
+SELECT * FROM Websites WHERE name NOT BETWEEN 'A' AND 'H';
+
+请注意，在不同的数据库中，BETWEEN 操作符会产生不同的结果！
+在某些数据库中，BETWEEN 选取介于两个值之间但不包括两个测试值的字段。
+在某些数据库中，BETWEEN 选取介于两个值之间且包括两个测试值的字段。
+在某些数据库中，BETWEEN 选取介于两个值之间且包括第一个测试值但不包括最后一个测试值的字段。
+
+11、别名：为表名称或列名称指定别名。基本上，创建别名是为了让列名称的可读性更强。
+列别名：SELECT column_name AS alias_name FROM table_name;
+表别名：SELECT w.name, w.url, a.count, a.date FROM Websites AS w, access_log AS a WHERE a.site_id=w.id and w.name="菜鸟教程";
+
+在下面的情况下，使用别名很有用：
+在查询中涉及超过一个表
+在查询中使用了函数
+列名称很长或者可读性差
+需要把两个列或者多个列结合在一起
+
+12、join/inner join
+SELECT column_name(s) FROM table1 (INNER) JOIN table2 ON table1.column_name=table2.column_name;
+数据库在通过连接两张或多张表来返回记录时，都会生成一张中间的临时表，然后再将这张临时表返回给用户。
+
+13、left join/left outer join
+从左表（table1）返回所有的行，即使右表（table2）中没有匹配。如果右表中没有匹配，则结果为 NULL
+在使用 left jion 时，on 和 where 条件的区别如下：
+1、 on 条件是在生成临时表时使用的条件，它不管 on 中的条件是否为真，都会返回左边表中的记录。
+2、where 条件是在临时表生成好后，再对临时表进行过滤的条件。这时已经没有 left join 的含义（必须返回左边表的记录）了，条件不为真的就全部过滤掉。
+
+14、UNION 操作符合并两个或多个 SELECT 语句的结果。
+请注意，UNION 内部的每个 SELECT 语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每个 SELECT 语句中的列的顺序必须相同。
+UNION 结果集中的列名总是等于 UNION 中第一个 SELECT 语句中的列名。
+eg:
+SELECT country FROM Websites UNION SELECT country FROM apps ORDER BY country;
+Country
+CN
+IND
+USA
+注：UNION 不能用于列出两个表中所有的country。如果一些网站和APP来自同一个国家，每个国家只会列出一次。UNION 只会选取不同的值。请使用 UNION ALL 来选取重复的值！
+SELECT country FROM Websites UNION ALL SELECT country FROM apps ORDER BY country;
+Country
+CN
+CN
+CN
+IND
+USA
+USA
+USA
+
+
+15、SQL约束：用于规定表中的数据规则。
+如果存在违反约束的数据行为，行为会被约束终止。
+约束可以在创建表时规定（通过 CREATE TABLE 语句），或者在表创建之后规定（通过 ALTER TABLE 语句）。
+在 SQL 中，有如下约束：
+NOT NULL - 指示某列不能存储 NULL 值。
+UNIQUE - 保证某列的每行必须有唯一的值。
+PRIMARY KEY - NOT NULL 和 UNIQUE 的结合。确保某列（或两个列多个列的结合）有唯一标识，有助于更容易更快速地找到表中的一个特定的记录。
+FOREIGN KEY - 保证一个表中的数据匹配另一个表中的值的参照完整性。预防破坏表之间连接的行为。
+CHECK - 保证列中的值符合指定的条件。
+DEFAULT - 规定没有给列赋值时的默认值。
+
+16、Aggregate函数：AVG(), SUM(), COUNT(), MIN(), MAX()，可与group by 混合使用，也可单独使用。
+17、HAVING: SQL中增加HAVING子句原因是，WHERE 关键字无法与聚合函数一起使用。
+
+18、其他常用函数：
+ROUND(column_name,decimals): 把数值字段舍入为指定的小数位数。
+LEN(column_name): 返回文本字段中值的长度
+MID(column_name,start,end)/substr(column，start,end): 从文本字段中提取字符。
+NOW(): 函数返回当前系统的日期和时间
