@@ -85,6 +85,8 @@ XGBoost在每个特征上分裂的时候，会默认的把缺失值归入左子�
 6、支持并行(特征粒度)；
 
 ## 四、APPENDIX
-论文：https://github.com/sam6209/Machine-Learning/blob/master/machine_learning/XGBoost.pdf  
-课件：https://github.com/sam6209/Machine-Learning/blob/master/machine_learning/Introduction_to_Boosted_Tree.pdf  
+论文：https://github.com/sam6209/Machine-Learning/blob/master/machine_learning/XGBoost/XGBoost.pdf  
+
+课件：https://github.com/sam6209/Machine-Learning/blob/master/machine_learning/XGBoost/Introduction_to_Boosted_Tree.pdf  
+
 参考：https://www.zhihu.com/question/41354392/answer/98658997
