@@ -8,7 +8,7 @@ XGBoost论文总结:https://github.com/sam6209/Machine-Learning/blob/master/mach
 2、无序的离散特征：如省份，one-hot处理；  
 3、有序的离散特征：如年龄，当成连续特征直接输入；  
 4、libsvm：数据必须转成lbsvm格式才能训练，label index:value 格式如下    
-1 1:0.167 2:1 3:-0.333 … 10:0.922 
+1 1:0.167 2:1 3:-0.333 … 10:0.922   
 5、缺失值：libsvm可兼容缺失值, 只需缺少相应的index:value。
 
 ## 二、重要参数
