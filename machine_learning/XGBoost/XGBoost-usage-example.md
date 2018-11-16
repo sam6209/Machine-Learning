@@ -69,9 +69,9 @@ preds = bst.predict(dtest)
 ```
 
 ## 四、调参 
-1、优先调比较重要的参数，如eta，其他不那么重要的参数可先取默认值；
-2、比较重要的参数先大范围粗粒度搜索，确定到一个相对小的区间，再小范围精确搜索，确定到某个组合。
-3、调不那么重要的参数，如num_round、colsample_bytree、max_depth、lambda等。
+1、优先调比较重要的参数，如eta，其他不那么重要的参数可先取默认值；  
+2、比较重要的参数先大范围粗粒度搜索，确定到一个相对小的区间，再小范围精确搜索，确定到某个组合。  
+3、调不那么重要的参数，如 num_round、colsample_bytree、max_depth、lambda等。
 
 ## 五、参考
 官方文档：https://xgboost.readthedocs.io/en/latest/parameter.html#general-parameters  
