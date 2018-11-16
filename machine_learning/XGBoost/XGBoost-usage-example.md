@@ -1,4 +1,8 @@
 # XGBoost使用
+## 写在前面
+这篇算上一篇论文总结的姊妹篇吧，这篇讲XGBoost实用。  
+XGBoost论文总结:https://github.com/sam6209/Machine-Learning/blob/master/machine_learning/XGBoost/XGBoost.md
+
 ## 一、特征工程
 1、连续特征：不需要处理，直接输入。连续特征一定不要分桶，因为回归树会自动去寻找最好的切分点(在使损失函数减少最多的那个点分裂)；  
 2、无序的离散特征：如省份，one-hot处理；  
@@ -64,7 +68,12 @@ bst = xgb.train(param, dtrain, num_round, watchlist)
 preds = bst.predict(dtest)
 ```
 
-## 四、参考
+## 四、调参 
+1、优先调比较重要的参数，如eta，其他不那么重要的参数可先取默认值；
+2、比较重要的参数先大范围粗粒度搜索，确定到一个相对小的区间，再小范围精确搜索，确定到某个组合。
+3、调不那么重要的参数，如num_round、colsample_bytree、max_depth、lambda等。
+
+## 五、参考
 官方文档：https://xgboost.readthedocs.io/en/latest/parameter.html#general-parameters  
 
 官方代码：https://github.com/dmlc/xgboost/blob/master/demo/guide-python/basic_walkthrough.py   
