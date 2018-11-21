@@ -84,7 +84,25 @@ XGBoost在每个特征上分裂的时候，会默认的把缺失值归入左子�
 5、对缺失值处理：对于特征的值有缺失的样本，xgboost可以自动学习出它的分裂方向；  
 6、支持并行(特征粒度)；
 
-## 四、APPENDIX
+## 四、基础总结
+1、决策树：  
+只能处理离散特征，不能处理连续特征(连续特征必须分桶)；  
+选择分类的特征有多少种类别，就分裂出多少棵子树；  
+ID3算法：通过计算信息增益，选取信息增益最大的特征，来进行分裂。因为倾向于选择类别较多的特征(比如省份有34类，而年龄只有2类，因此省份更容易被选为分裂的特征)；  
+C4.5算法：为了ID3倾向于选择类别较多的特征，C4.5t通过信息增益比来选择分裂的特征。
+
+2、CART(分类与回归树)：  
+回归树：  
+只能处理连续特征或者类别有序的离散特征(如年龄)，无序的离散特征必须one-hot处理(如省份)；  
+为二叉树；  
+损失函数一般为平方损失；  
+XGBoost和GBDT都是用的是CART回归树(XGBoost还可以使用线形模型作为基模型)。
+
+分类树：
+只能处理离散特征，不能处理连续特征；连续特征最好分桶后one-hot处理。  
+为二叉树；
+
+## 五、APPENDIX
 论文：https://github.com/sam6209/Machine-Learning/blob/master/machine_learning/XGBoost/XGBoost-2016.pdf  
 
 课件：https://github.com/sam6209/Machine-Learning/blob/master/machine_learning/XGBoost/Introduction-to-Boosted-Tree.pdf  
